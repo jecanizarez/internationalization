@@ -1,9 +1,9 @@
 import React from 'react';
 import Job from "./job";
+import { IntlProvider, FormattedMessage } from "react-intl";
+export default function JobsList(props){
 
-export default class JobsList extends React.Component {
-
-  state = { 
+    const state = { 
   	"offers": [
     	{
     	  "id": "0001",
@@ -30,27 +30,32 @@ export default class JobsList extends React.Component {
         "date": "2019-03-28"
       }
     ]
-  };
-
-  render() {
-    return (
+  };   
+  let tema = "";
+  if(navigator.language.startsWith("en")){
+    tema = "thead-ligth";
+  }
+  else{
+    tema = "thead-dark";
+  }
+  return(
       <div>
         <table className="table">
-          <thead className="thead-dark">
+          <thead className={tema}>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Position</th>
-              <th scope="col">Company</th>
-              <th scope="col">Salary</th>
-              <th scope="col">City</th>
-              <th scope="col">Publication date</th>
+              <th scope="col"><FormattedMessage id= "Position" defaultMessage="Position"/></th>
+              <th scope="col"><FormattedMessage id= "Company" defaultMessage ="Company"/></th>
+              <th scope="col"><FormattedMessage id= "Salary" defaultMessage ="Salary"/></th>
+              <th scope="col"><FormattedMessage id= "City" defaultMessage ="City"/></th>
+              <th scope="col"><FormattedMessage id= "PulibicationDate" defaultMessage ="Pulibication Date"/></th>
+              <th scope="col"> <FormattedMessage id= "Views" defaultMessage ="Views"/></th>  
             </tr>
           </thead>
           <tbody>
-              {this.state.offers.map( (e,i) => <Job key={i} offer={e}/>)}
+              {state.offers.map( (e,i) => <Job key={i} offer={e}/>)}
           </tbody>
         </table>
       </div>
-    );
-  }
+  );
 }
